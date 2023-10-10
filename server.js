@@ -4,7 +4,7 @@ const cors = require('cors');
 const socketio = require("socket.io")
 const {Server} = require('socket.io')
 const app = express();
-const port = 2222;
+const port = process.env.PORT || 2222  ;
 
 let users = [];
 app.get("/",(req,res)=>{
