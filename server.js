@@ -14,7 +14,7 @@ const server = http.createServer(app);
 
 const io = new Server(server , {
     cors:{
-        origin: "https://chatroom.vercel.app/",
+        origin: "https://shivamchatroom.vercel.app",
         methods:["Get","Post"]
     }
 })
@@ -27,7 +27,7 @@ io.on("connection",(socket)=>{
         users[socket.id] 
         console.log(`${user} has joined`)
 
-        socket.broadcast.emit("userjoined",{user:users[socket.id] , message:"Has Joined"})
+        socket.broadcast.emit("userjoined",{user:"Admin", message:`${users[socket.id]} Has Joined` , id:socket.id})
 
         socket.on("messagesent",(data)=>{
             console.log(data)
@@ -36,8 +36,9 @@ io.on("connection",(socket)=>{
         })
 
         socket.on("disconnect" , (user)=>{
-            console.log(`${user} left`)
-            socket.broadcast.emit("userdisconnect",{user:user, message:"Has Left"})
+            console.log(`${users[socket.id]} left`)
+            socket.broadcast.emit("userdisconnect",{user:"Admin", message:`${users[socket.id]} Has Left` , id:socket.id})
+      
             
          
         })
